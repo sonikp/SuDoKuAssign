@@ -1,0 +1,26 @@
+Sudoku is a popular number puzzle. You should be able to find various implementations
+on the Internet that you can leverage to complete the assignments for this class. You can 
+also use the attached Sodoku code to complete the assignment, which is from 
+http://sudoku.sourceforge.net.
+
+The instructions below are for the maintenance of that SuDoku example.  Do not worry about 
+the format of the files in the Sudoku example which you do not have to change.  
+
+For the first iteration:
+1. Replace all usage of the java.util.Vector class with the appropriate Collection Framework
+classes, typed by an interface.  The collection must be a generic collection as opposed 
+to a raw collection.
+
+2. Generate and submit Javadoc for the project. You do not need to add any JavaDoc comments 
+unless they are related to modified code, but you should enhance the JavaDoc comments in the 
+files you have modified.   Use at least @param, @return, and possibly @throws.
+
+3. Add your name and a descriptive comment wherever you make changes.
+
+4. A search of the files from the provided resource code reveals that the term vector 
+appears in Composer.java, MaskFactory.java, and StateStack.java.  Not all of these may 
+be java.util.Vector.
+
+Include a readme.txt or some such notification in your zipped submission that identifies the token
+you used to mark all of the changes you made in the source code.
+I suggest something like your initials (e.g. //jg)

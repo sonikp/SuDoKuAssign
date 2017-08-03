@@ -1,6 +1,6 @@
 Sudoku is a popular number puzzle. You should be able to find various implementations
 on the Internet that you can leverage to complete the assignments for this class. You can 
-also use the attached Sodoku code to complete the assignment, which is from 
+also use the attached Sudoku code to complete the assignment, which is from 
 http://sudoku.sourceforge.net.
 
 The instructions below are for the maintenance of that SuDoku example.  Do not worry about 
@@ -24,3 +24,15 @@ be java.util.Vector.
 Include a readme.txt or some such notification in your zipped submission that identifies the token
 you used to mark all of the changes you made in the source code.
 I suggest something like your initials (e.g. //jg)
+
+Vector files:
+Composer.java: puzzles = new Vector(); 
+
+MaskFactory.java, = None 
+
+StateStack.java
+	extends Vector
+	setSize()
+	setElement()
+	addElement()
+	elementAt()

@@ -39,7 +39,8 @@ import java.util.* ;
 
 public class Composer extends Thread {
 
-    Vector puzzles ;
+//    Vector puzzles ;
+    ArrayList<Object>puzzlez ; //added by MF
     
     GridContainer gridContainer ;
 
@@ -180,7 +181,8 @@ public class Composer extends Thread {
         isStartable = new boolean[nSolvers];
         solverMasks = new boolean[nSolvers][cellsInRow][cellsInRow];
         solverGrids = new Grid[nSolvers];
-        puzzles = new Vector();
+//        puzzles = new Vector();
+        puzzlez = new ArrayList<Object>();	// added by MF
         lch = new LeastCandidatesHybrid( false , true , false , true , explain );
         logicalFilter = guessFilter == -1 || 
                         guessFilter == 0 && 
@@ -258,7 +260,7 @@ public class Composer extends Thread {
             puzzle.rectify( solverMasks[solverIndex] );
         }
         // Store (and report) the puzzle if it hasn't been seen before.
-        if( ! puzzles.contains( puzzle ) ){
+        if( ! puzzlez.contains( puzzle ) ){	//puzzles.contains( puzzle ) //replaced by MF
             // Categorize the puzzle and filter it out if necessary.
             puzzle.solve( lch , 2 );
             puzzleComplexity = puzzle.complexity ;
@@ -393,7 +395,8 @@ public class Composer extends Thread {
                 }
             }
             lch.reset();
-            puzzles.addElement( puzzle );
+           // puzzles.addElement( puzzle );// replaced by MF
+            puzzlez.add(puzzle);
             if( output != null ){
                 if( xmlFormat ){
                     output.println( puzzle.toXML( 1 + nSolns , featuredGrades[category] ) );
@@ -528,8 +531,8 @@ public class Composer extends Thread {
                 ++ i ;
             }
             if( gridContainer != null ){
-                if( puzzles.size() > 0 ){
-                    gridContainer.setGrid( (Grid) puzzles.elementAt( 0 ) );
+                if( puzzlez.size() > 0 ){	//puzzles.size() > 0 // replaced by MF
+                    gridContainer.setGrid( (Grid) puzzlez.get( 0 ) ); 	// puzzles.elementAt( 0 )	// replaced by MF
                 }
             } else {
                 if( xmlFormat && output != null ){
@@ -539,7 +542,7 @@ public class Composer extends Thread {
                     System.out.println( nSolns + " solutions found");
                     if( nSolns > 0 ){
                         System.out.println("Most complex: (" + maxPuzzleComplexity + ")");
-                        System.out.println( ((Grid) puzzles.elementAt( mostComplex ) ).toString() );
+                        System.out.println( ((Grid) puzzlez.get( mostComplex ) ).toString() ); // puzzles.elementAt( mostComplex ) //investigate 
                     }
                 }
             }

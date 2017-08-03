@@ -25,7 +25,8 @@
 
 package com.act365.sudoku ;
 
-import java.util.Vector ;
+import java.util.ArrayList;
+//import java.util.Vector ;
 
 /**
  * StateStack stores state grids in a dynamically-expanding vector.
@@ -34,7 +35,7 @@ import java.util.Vector ;
  * as LinearSystemState.
  */
 
-public class StateStack extends Vector {
+public class StateStack extends ArrayList {
 
     int nMovesStored ;
     
@@ -47,7 +48,9 @@ public class StateStack extends Vector {
     public StateStack( int maxMoves ){
         nMovesStored = 0 ;
         moves = new int[maxMoves];
-        setSize( maxMoves );
+//        setSize( maxMoves );	// replaced by MF
+        ensureCapacity(maxMoves);	// replaced by MF
+        
     }
     
     /**
@@ -60,9 +63,11 @@ public class StateStack extends Vector {
             ++ i ;   
         }
         if( i < nMovesStored ){
-            setElementAt( obj , i );   
+//            setElementAt( obj , i );   // replaced by MF
+        	set(i, obj);
         } else {
-            addElement( obj );
+//            addElement( obj );	// replaced by MF
+        	add( obj );
             moves[nMovesStored++] = nMoves ;
         }
     }    
@@ -77,7 +82,8 @@ public class StateStack extends Vector {
             ++ i ;   
         }
         if( i < nMovesStored ){
-            return elementAt( i );   
+//            return elementAt( i );   // replaced by MF
+        	return get(i);
         } else {
             return null ;   
         }

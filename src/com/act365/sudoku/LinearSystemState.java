@@ -42,7 +42,7 @@ public class LinearSystemState implements IState {
 
     // Thread
     
-    StateStack stack ;
+    StateStackOLD stack ;
     
 //    byte[][][][] threadA ;
     
@@ -68,7 +68,7 @@ public class LinearSystemState implements IState {
         a = new byte[cellsInRow][3*cellsInRow][1+cellsInRow*cellsInRow];
         nRows = new int[cellsInRow];
 
-        stack = new StateStack( cellsInRow * cellsInRow );
+        stack = new StateStackOLD( cellsInRow * cellsInRow );
         threadNRows = new int[cellsInRow*cellsInRow][cellsInRow];
                 
 //        threadA = new byte[cellsInRow*cellsInRow][cellsInRow][3*cellsInRow][1+cellsInRow*cellsInRow];

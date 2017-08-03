@@ -23,6 +23,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+// Assignment2 MF
+
 package com.act365.sudoku;
 
 import com.act365.sudoku.masks.*;
@@ -39,7 +41,7 @@ import java.util.* ;
 
 public class Composer extends Thread {
 
-//    Vector puzzles ;
+//    Vector puzzles ;			// removed by MF
     ArrayList<Object>puzzlez ; //added by MF
     
     GridContainer gridContainer ;
@@ -181,7 +183,7 @@ public class Composer extends Thread {
         isStartable = new boolean[nSolvers];
         solverMasks = new boolean[nSolvers][cellsInRow][cellsInRow];
         solverGrids = new Grid[nSolvers];
-//        puzzles = new Vector();
+//        puzzles = new Vector();			// removed by MF
         puzzlez = new ArrayList<Object>();	// added by MF
         lch = new LeastCandidatesHybrid( false , true , false , true , explain );
         logicalFilter = guessFilter == -1 || 

@@ -27,6 +27,11 @@ package com.act365.sudoku ;
 
 import java.util.ArrayList;
 //import java.util.Vector ;
+/*
+ * Robert: how do we know this is an integer and how do we ensure it is an integer, use call heirarchy
+ *  
+ */
+
 
 /**
  * StateStack stores state grids in a dynamically-expanding vector.
@@ -35,7 +40,7 @@ import java.util.ArrayList;
  * as LinearSystemState.
  */
 
-public class StateStack extends ArrayList {
+public class StateStack extends ArrayList<Integer> {
 
     int nMovesStored ;
     
@@ -64,10 +69,10 @@ public class StateStack extends ArrayList {
         }
         if( i < nMovesStored ){
 //            setElementAt( obj , i );   // replaced by MF
-        	set(i, obj);
+        	set(i, (Integer) obj);
         } else {
 //            addElement( obj );	// replaced by MF
-        	add( obj );
+        	add( (Integer) obj );
             moves[nMovesStored++] = nMoves ;
         }
     }    

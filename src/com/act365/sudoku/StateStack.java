@@ -24,7 +24,11 @@
  */
 
 package com.act365.sudoku ;
-
+/**
+ * &MF Application Modification
+ * Replaced the Vector class with the Java
+ * Collections Framework Arraylist class
+ */
 import java.util.ArrayList;
 //import java.util.Vector ;
 /*
@@ -47,19 +51,34 @@ public class StateStack extends ArrayList<Integer> {
     int[] moves ;
     
     /**
-     * Creates a StateStack to store at most maxMoves moves. 
+     * Creates a StateStack to store at most maxMoves moves.
+     * 
+     * &MF modification of constructor to replace the Vector class setSize() 
+     * with the ArrayList equivalent ensureCapacity(). Increases
+     * the capacity of moves integer array to have minimum size of
+     * the maxMoves value.
+     *  @param maxMoves maximum number of moved depending on the gameplay layout
      */
 
     public StateStack( int maxMoves ){
         nMovesStored = 0 ;
         moves = new int[maxMoves];
-//        setSize( maxMoves );	// replaced by MF
-        ensureCapacity(maxMoves);	// replaced by MF
+//        setSize( maxMoves );				// edited by &MF
+        ensureCapacity(maxMoves);			// edited by &MF
         
     }
     
     /**
      * @see com.act365.sudoku.IState#pushState(int)
+     * 
+     * &MF modification of pushState(), while the available moves
+     * value stored in the nMovesStored and moves array is not 
+     * equal to the total number of moves "nMoves", either:
+     * -if- current move number is less that the moves stored, add
+     * this move to the array at that move number location
+     * -else- add that move to the end of the ArrayList
+     * @param nMoves number of possible moves
+     * @param obj Grid position object
      */
      
     public void pushState( Object obj , int nMoves ) {
@@ -68,10 +87,10 @@ public class StateStack extends ArrayList<Integer> {
             ++ i ;   
         }
         if( i < nMovesStored ){
-//            setElementAt( obj , i );   // replaced by MF
+            // setElementAt( obj , i );   	// edited by &MF
         	set(i, (Integer) obj);
         } else {
-//            addElement( obj );	// replaced by MF
+            // addElement( obj );			// edited by &MF
         	add( (Integer) obj );
             moves[nMovesStored++] = nMoves ;
         }
@@ -79,6 +98,18 @@ public class StateStack extends ArrayList<Integer> {
 
     /**
      * @see com.act365.sudoku.IState#popState(int)
+     * 
+     * &MF modification of popState() from the Vector class to the 
+     * Java Collections Framework ArrayList. While the available moves
+     * value stored in the nMovesStored and moves array is not 
+     * equal to the total number of moves "nMoves", increase
+     * index number count by one. Then,
+     * -if- move index is equal to the number of moves stored
+     * in nMoveStored, return the element at the specified location 
+     * in the array list, or -else- if the move index is not less
+     * than the maximum number of moves, return null.
+     * @param nMoves total number of moves to be played depending on game grid size
+     * @return element at the grid object location.
      */
         
     public Object popState( int nMoves ) {
@@ -87,7 +118,7 @@ public class StateStack extends ArrayList<Integer> {
             ++ i ;   
         }
         if( i < nMovesStored ){
-//            return elementAt( i );   // replaced by MF
+            //  return elementAt( i );   // edited by &MF
         	return get(i);
         } else {
             return null ;   

@@ -23,7 +23,16 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-// Assignment2 MF
+/**
+ * Assignment 2 
+ * &MF Application Modification
+ * Replaced the Vector class with the Java
+ * Collections Framework Arraylist class
+ * @author of this Sudoku application, not me!
+ * @studentAuthor modifications for this assignment applied be me, &MF
+ * @deprecated puzzles Vector class vector list
+ * @param puzzlez replacement of Vector list with ArrayList<Grid> 
+ */
 
 package com.act365.sudoku;
 
@@ -41,8 +50,17 @@ import java.util.* ;
 
 public class Composer extends Thread {
 
-//    Vector puzzles ;			// removed by MF
-    ArrayList<Object>puzzlez ; //added by MF
+	
+	/**
+	 *  &MF modification of instance variable from the Vector
+	 *  class to the Java Collections Framework ArrayList.
+	 *  Using generic's and setting the type to be the 'Grid'
+	 *  type. 
+	 *  @param puzzlez ArrayList of Grid objects
+	 */
+
+    // Vector puzzles ;					// edited by &MF
+    ArrayList<Grid>puzzlez ; 			// edited by &MF
     
     GridContainer gridContainer ;
 
@@ -175,6 +193,12 @@ public class Composer extends Thread {
         this.shuffleMask = shuffleMask ;
         this.xmlFormat = xmlFormat ;
         
+        /**
+         * &MF modification of instance variable from the Vector
+         * class to the Java Collections Framework ArrayList.
+         * @param puzzlez create the ArrayList for 'Grid' objects
+         */
+        
         maskSize = maskFactory.getFilledCells();
         cellsInRow = maskFactory.getCellsInRow();
         solvers = new Solver[nSolvers];
@@ -183,8 +207,8 @@ public class Composer extends Thread {
         isStartable = new boolean[nSolvers];
         solverMasks = new boolean[nSolvers][cellsInRow][cellsInRow];
         solverGrids = new Grid[nSolvers];
-//        puzzles = new Vector();			// removed by MF
-        puzzlez = new ArrayList<Object>();	// added by MF
+        //  puzzles = new Vector();					// edited by &MF
+        puzzlez = new ArrayList<Grid>();			// edited by &MF
         lch = new LeastCandidatesHybrid( false , true , false , true , explain );
         logicalFilter = guessFilter == -1 || 
                         guessFilter == 0 && 
@@ -261,8 +285,16 @@ public class Composer extends Thread {
         } else {
             puzzle.rectify( solverMasks[solverIndex] );
         }
-        // Store (and report) the puzzle if it hasn't been seen before.
-        if( ! puzzlez.contains( puzzle ) ){	//puzzles.contains( puzzle ) //replaced by MF
+        
+        /**
+         * &MF modification of vector list from the Vector
+         * class to the Java Collections Framework ArrayList.
+         * Store (and report) the puzzle if it hasn't been seen before.
+         * Replacement of Vector class with ArrayList methods. Method contains()
+         * returns true if the puzzlez Arraylist contains the puzzle grid object
+         * @param puzzle object
+         */
+        if( ! puzzlez.contains( puzzle ) ){			//puzzles.contains( puzzle ) //replaced by &MF
             // Categorize the puzzle and filter it out if necessary.
             puzzle.solve( lch , 2 );
             puzzleComplexity = puzzle.complexity ;
@@ -397,8 +429,13 @@ public class Composer extends Thread {
                 }
             }
             lch.reset();
-           // puzzles.addElement( puzzle );// replaced by MF
-            puzzlez.add(puzzle);
+           /**
+            * &MF modification of list vector from the Vector 
+            * class to the Java Collections Framework ArrayList.
+            * Append puzzle element to end of the list
+            * @param puzzle add puzzle object to the end of the ArrayList
+            */
+            puzzlez.add(puzzle);		// puzzles.addElement( puzzle );	// edited by &MF
             if( output != null ){
                 if( xmlFormat ){
                     output.println( puzzle.toXML( 1 + nSolns , featuredGrades[category] ) );
@@ -532,19 +569,36 @@ public class Composer extends Thread {
                 }
                 ++ i ;
             }
+            /**
+             * &MF modification of list vector from the Vector 
+             * class to the Java Collections Framework ArrayList.
+             * Using the ArrayList get size() of ArrayList method, get the size 
+             * of the ArrayList.  
+             * -if- it is greater than 0, use the ArrayList get() method to get 
+             * the first element stored at location 0 of the ArrayList. This
+             * is then set as the grid in the gridContainer object
+             * 
+             */
             if( gridContainer != null ){
-                if( puzzlez.size() > 0 ){	//puzzles.size() > 0 // replaced by MF
-                    gridContainer.setGrid( (Grid) puzzlez.get( 0 ) ); 	// puzzles.elementAt( 0 )	// replaced by MF
+                if( puzzlez.size() > 0 ){								// puzzles.size() > 0 	    // edited by &MF
+                    gridContainer.setGrid( (Grid) puzzlez.get( 0 ) ); 	// puzzles.elementAt( 0 )	// edited by &MF
                 }
             } else {
                 if( xmlFormat && output != null ){
                     output.println( SuDokuUtils.libraryBookFooter() );
                     output.close();
                 } else {
+                	/**
+                     * &MF modification of list vector from the Vector 
+                     * class to the Java Collections Framework ArrayList.
+                     * Using the ArrayList get() method, get the element located at 
+                     * integer location mostComplex and print it out.
+                     * 
+                     */
                     System.out.println( nSolns + " solutions found");
                     if( nSolns > 0 ){
                         System.out.println("Most complex: (" + maxPuzzleComplexity + ")");
-                        System.out.println( ((Grid) puzzlez.get( mostComplex ) ).toString() ); // puzzles.elementAt( mostComplex ) //investigate 
+                        System.out.println( ((Grid) puzzlez.get( mostComplex ) ).toString() ); // puzzles.elementAt( mostComplex ) // edited by &MF 
                     }
                 }
             }

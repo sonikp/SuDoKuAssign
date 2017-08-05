@@ -244,9 +244,9 @@ public class Composer extends Thread {
      * if it hasn't been seen before. Replacement of Vector class with ArrayList methods. 
      * Method contains() returns true if the  Arraylist contains the puzzle grid object
      * - Append puzzle element to end of the list
-     * @param puzzlez ArrayList<Grid>
-     * @param puzzlez.add() method adds puzzle object to the end of the ArrayList puzzlez
-     * @param puzzlez.contains() returns true if the puzzlez Arraylist contains the puzzle grid object
+     * @param puzzlez ArrayList, replaces the Vector list
+     * @param puzzlez.add() method adds puzzle object to the end of the ArrayList puzzlez, replaces Vector addElement() with ArrayList add()
+     * @param puzzlez.contains() returns true if the puzzlez Arraylist contains the puzzle grid object, replaced Vector contains() with ArrayList contains()
      */
     
     public synchronized void addSolution( int solverIndex ){
@@ -296,7 +296,7 @@ public class Composer extends Thread {
         }
         
 
-        if( ! puzzlez.contains( puzzle ) ){			//puzzles.contains( puzzle ) //edited by &MF
+        if( ! puzzlez.contains( puzzle ) ){			//puzzles.contains( puzzle ) //edited by &MF: replaced Vector contains() with ArrayList contains()
             // Categorize the puzzle and filter it out if necessary.
             puzzle.solve( lch , 2 );
             puzzleComplexity = puzzle.complexity ;
@@ -432,7 +432,7 @@ public class Composer extends Thread {
             }
             lch.reset();
 
-            puzzlez.add(puzzle);		// puzzles.addElement( puzzle );	// edited by &MF
+            puzzlez.add(puzzle);		// puzzles.addElement( puzzle );	// edited by &MF: replaces Vector addElement() with ArrayList add()
             if( output != null ){
                 if( xmlFormat ){
                     output.println( puzzle.toXML( 1 + nSolns , featuredGrades[category] ) );
@@ -581,8 +581,8 @@ public class Composer extends Thread {
             }
 
             if( gridContainer != null ){
-                if( puzzlez.size() > 0 ){								// puzzles.size() > 0 	    // edited by &MF
-                    gridContainer.setGrid( (Grid) puzzlez.get( 0 ) ); 	// puzzles.elementAt( 0 )	// edited by &MF
+                if( puzzlez.size() > 0 ){								// puzzles.size() > 0 	    // edited by &MF: checks size of ArrayList replaces vector.size()
+                    gridContainer.setGrid( (Grid) puzzlez.get( 0 ) ); 	// puzzles.elementAt( 0 )	// edited by &MF: gets object at location 0 replaces vector.elementAt()
                 }
             } else {
                 if( xmlFormat && output != null ){

@@ -61,7 +61,7 @@ public class StateStack extends ArrayList<Integer> {
         nMovesStored = 0 ;
         moves = new int[maxMoves];
 //        setSize( maxMoves );				// edited by &MF
-        ensureCapacity(maxMoves);			// edited by &MF
+        ensureCapacity(maxMoves);			// edited by &MF: replaced Vector.setSize() with ArrayList.ensureCapacity()
         
     }
     
@@ -84,10 +84,10 @@ public class StateStack extends ArrayList<Integer> {
             ++ i ;   
         }
         if( i < nMovesStored ){
-            // setElementAt( obj , i );   	// edited by &MF
+            // setElementAt( obj , i );   	// edited by &MF: replaced Vector.setElementAt() with ArrayList.set()
         	set(i, (Integer) obj);
         } else {
-            // addElement( obj );			// edited by &MF
+            // addElement( obj );			// edited by &MF: replaced Vector.addElement() with ArrayList.add()
         	add( (Integer) obj );
             moves[nMovesStored++] = nMoves ;
         }
@@ -115,7 +115,7 @@ public class StateStack extends ArrayList<Integer> {
             ++ i ;   
         }
         if( i < nMovesStored ){
-            //  return elementAt( i );   // edited by &MF
+            //  return elementAt( i );   // edited by &MF: replaced Vector.elementAt() with ArrayList.get()
         	return get(i);
         } else {
             return null ;   

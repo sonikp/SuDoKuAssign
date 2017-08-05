@@ -46,18 +46,16 @@ import java.util.* ;
  * A Composer object attempts to compose valid Su Doku puzzles with the
  * MostCandidates strategy. It runs as a thread because composition is
  * a lengthy process that the caller might well choose to terminate.
+ * 
+ * &MF modification of instance variable from the Vector
+ * class to the Java Collections Framework ArrayList.
+ * Using generic's and setting the type to be the 'Grid' type.
+ * @param puzzlez ArrayList of Grid objects replaces Vector puzzles
  */
 
 public class Composer extends Thread {
 
 	
-	/**
-	 *  &MF modification of instance variable from the Vector
-	 *  class to the Java Collections Framework ArrayList.
-	 *  Using generic's and setting the type to be the 'Grid'
-	 *  type. 
-	 *  @param puzzlez ArrayList of Grid objects
-	 */
 
     // Vector puzzles ;					// edited by &MF
     ArrayList<Grid>puzzlez ; 			// edited by &MF
@@ -138,7 +136,11 @@ public class Composer extends Thread {
      * puzzle with 'maskSize' cells on initial display. The puzzle will
      * be copied into 'grid'. When 'randomize' is selected, the mask 
      * will be selected randomly and the RadomMostCandidates strategy 
-     * will be used to complete it.
+     * will be used to complete it. &MF modification of instance variable from the Vector 
+     * class to the Java Collections Framework ArrayList.
+     * 
+     * @param puzzlez create the ArrayList for 'Grid' objects, replaces vector list wit collections framework ArrayList
+     * 
      * @param gridContainer object to be notified when a puzzle has been composed
      * @param boxesAcross 
      * @param maxSolns maximum number of solutions to find (0 for no limit)
@@ -193,11 +195,7 @@ public class Composer extends Thread {
         this.shuffleMask = shuffleMask ;
         this.xmlFormat = xmlFormat ;
         
-        /**
-         * &MF modification of instance variable from the Vector
-         * class to the Java Collections Framework ArrayList.
-         * @param puzzlez create the ArrayList for 'Grid' objects
-         */
+
         
         maskSize = maskFactory.getFilledCells();
         cellsInRow = maskFactory.getCellsInRow();
@@ -238,6 +236,17 @@ public class Composer extends Thread {
      * solution has been found.
      * @see Solver
      * @param solverIndex index of the reporting solver
+     */
+    
+    /**
+     * &MF Adds gameplay to the solution. Modification of vector list from the Vector
+     * class to the Java Collections Framework ArrayList. Store (and report) the puzzle 
+     * if it hasn't been seen before. Replacement of Vector class with ArrayList methods. 
+     * Method contains() returns true if the  Arraylist contains the puzzle grid object
+     * - Append puzzle element to end of the list
+     * @param puzzlez ArrayList<Grid>
+     * @param puzzlez.add() method adds puzzle object to the end of the ArrayList puzzlez
+     * @param puzzlez.contains() returns true if the puzzlez Arraylist contains the puzzle grid object
      */
     
     public synchronized void addSolution( int solverIndex ){
@@ -286,15 +295,8 @@ public class Composer extends Thread {
             puzzle.rectify( solverMasks[solverIndex] );
         }
         
-        /**
-         * &MF modification of vector list from the Vector
-         * class to the Java Collections Framework ArrayList.
-         * Store (and report) the puzzle if it hasn't been seen before.
-         * Replacement of Vector class with ArrayList methods. Method contains()
-         * returns true if the puzzlez Arraylist contains the puzzle grid object
-         * @param puzzle object
-         */
-        if( ! puzzlez.contains( puzzle ) ){			//puzzles.contains( puzzle ) //replaced by &MF
+
+        if( ! puzzlez.contains( puzzle ) ){			//puzzles.contains( puzzle ) //edited by &MF
             // Categorize the puzzle and filter it out if necessary.
             puzzle.solve( lch , 2 );
             puzzleComplexity = puzzle.complexity ;
@@ -429,12 +431,7 @@ public class Composer extends Thread {
                 }
             }
             lch.reset();
-           /**
-            * &MF modification of list vector from the Vector 
-            * class to the Java Collections Framework ArrayList.
-            * Append puzzle element to end of the list
-            * @param puzzle add puzzle object to the end of the ArrayList
-            */
+
             puzzlez.add(puzzle);		// puzzles.addElement( puzzle );	// edited by &MF
             if( output != null ){
                 if( xmlFormat ){
@@ -514,7 +511,20 @@ public class Composer extends Thread {
     /**
      * Starts a Composer thread. The thread will start a number of Solvers
      * and collate the returned results.
+     * &MF modification of list vector from the Vector 
+     * class to the Java Collections Framework ArrayList.
+     * Using the ArrayList get size() of ArrayList method, get the size 
+     * of the ArrayList.  
+     * -if- it is greater than 0, use the ArrayList get() method to get 
+     * the first element stored at location 0 of the ArrayList. This
+     * is then set as the grid in the gridContainer object
+     * Using the ArrayList get() method, get the element located at 
+     * integer location mostComplex and print it out.
      * @see Solver
+     * @param puzzlez.size() checks size of ArrayList replaces vector.size()
+     * @param puzzlez.get() gets object at location 0 replaces vector.elementAt()
+     * 
+     * 
      */
     
     @Override public void run(){
@@ -569,16 +579,7 @@ public class Composer extends Thread {
                 }
                 ++ i ;
             }
-            /**
-             * &MF modification of list vector from the Vector 
-             * class to the Java Collections Framework ArrayList.
-             * Using the ArrayList get size() of ArrayList method, get the size 
-             * of the ArrayList.  
-             * -if- it is greater than 0, use the ArrayList get() method to get 
-             * the first element stored at location 0 of the ArrayList. This
-             * is then set as the grid in the gridContainer object
-             * 
-             */
+
             if( gridContainer != null ){
                 if( puzzlez.size() > 0 ){								// puzzles.size() > 0 	    // edited by &MF
                     gridContainer.setGrid( (Grid) puzzlez.get( 0 ) ); 	// puzzles.elementAt( 0 )	// edited by &MF
@@ -588,13 +589,7 @@ public class Composer extends Thread {
                     output.println( SuDokuUtils.libraryBookFooter() );
                     output.close();
                 } else {
-                	/**
-                     * &MF modification of list vector from the Vector 
-                     * class to the Java Collections Framework ArrayList.
-                     * Using the ArrayList get() method, get the element located at 
-                     * integer location mostComplex and print it out.
-                     * 
-                     */
+
                     System.out.println( nSolns + " solutions found");
                     if( nSolns > 0 ){
                         System.out.println("Most complex: (" + maxPuzzleComplexity + ")");
